@@ -25,7 +25,8 @@
                     type="email"
                     placeholder="Email"
                     required
-                    @blur="validateEmail"
+                    @input="validateEmail"
+                    @blur="checkToSubmit"
                 />
                 <div v-if="invalidMessage" class="text-xs italic text-red-600 pt-2">
                     {{ invalidMessage }}
@@ -62,10 +63,27 @@ export default {
           selectedContact: {},
           errorMessage: null,
           invalidMessage: null,
+          timeout: null,
       }
   },
   methods: {
     validateEmail() {
+        //This will run on input with a timeout of 1 second - this is so it can trigger while they're still in the input field, but theoretically when they have paused typing
+        clearTimeout(this.timeout)
+
+        const emailRegex = /\b[\w.!#$%&’*+/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b/
+        const valid = emailRegex.test(this.emailInput)
+
+        if (!valid) {
+            this.timeout = setTimeout(() => {
+                this.invalidMessage = 'Please enter a valid email address'
+            }, 1000)
+        } else {
+            this.invalidMessage = null
+        }
+    },
+    checkToSubmit() {
+        //This will run on blur/when they exit the input field in some way
         const emailRegex = /\b[\w.!#$%&’*+/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b/
         const valid = emailRegex.test(this.emailInput)
 

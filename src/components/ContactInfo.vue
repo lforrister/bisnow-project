@@ -23,7 +23,7 @@
                 <h3 v-else class="font-bold text-md mt-4">
                     Additional Employment 
                 </h3>
-                <h4>
+                <h4 class="text-md italic">
                     {{ position.title }} at {{ position.company }}
                 </h4>
                 <div class="flex flex-wrap justify-center">
