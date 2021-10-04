@@ -41,18 +41,19 @@
             </button>
         </form>
 
-        <div v-if="includedEmail">
-            <h1> Contact Info: </h1>
-            {{ selectedContact.name }}
-        </div>
+        <ContactInfo v-if="includedEmail" :selectedContact="selectedContact" />
     </div>
 </template>
 
 <script>
 import contacts from '../assets/json/contacts.json'
+import ContactInfo from './ContactInfo.vue'
 
 export default {
   name: 'Email Directory',
+  components: {
+      ContactInfo,
+  },
   data() {
       return {
           contactData: contacts,
