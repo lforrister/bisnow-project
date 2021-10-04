@@ -1,24 +1,35 @@
 <template>
     <div class="bg-white max-w-lg mx-auto p-8 bg-white md:shadow-md rounded-md">
-        <h1> Email Directory </h1>
-        <p>
-            Please enter an email in the field below to retrieve the associated information.
-        </p>
+        <div class="border-b-2 border-color-gray-900 pb-3">
+            <h1 class="text-lg font-bold leading-6 text-gray-900 text-center">
+                Email Directory 
+            </h1>
+            <p class="text-sm font-light text-gray-900 italic pt-2">
+                Please enter an email in the field below to retrieve the associated information.
+            </p>
+        </div>
 
-        <form>
+        <form class="pt-4">
+            <div v-if="errorMessage" class="border-2 border-red-600 rounded-sm p-2 text-xs text-red-600 bg-red-50 font-bold mb-4">
+                {{ errorMessage }}
+            </div>
             <div class="mb-4">
                 <label class="block text-gray-500 text-xs font-bold mb-2 uppercase" for="email">
                     Email Address
                 </label>
                 <input
                     v-model="emailInput"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    class="emailDirectory__input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    :class="{'is-invalid' : invalidMessage}"
                     id="email"
                     type="email"
                     placeholder="Email"
                     required
                     @blur="validateEmail"
                 />
+                <div v-if="invalidMessage" class="text-xs italic text-red-600 pt-2">
+                    {{ invalidMessage }}
+                </div>
             </div>
 
             <button
@@ -33,14 +44,6 @@
         <div v-if="includedEmail">
             <h1> Contact Info: </h1>
             {{ selectedContact.name }}
-        </div>
-
-        <div v-if="errorMessage">
-            {{ errorMessage }}
-        </div>
-
-        <div v-if="invalidMessage">
-            {{ invalidMessage }}
         </div>
     </div>
 </template>
@@ -96,4 +99,9 @@ export default {
 </script>
 
 <style lang="scss">
+.emailDirectory__input {
+    &.is-invalid {
+        border: 2px solid #f87171;
+    }
+}
 </style>
