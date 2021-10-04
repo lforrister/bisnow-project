@@ -50,7 +50,7 @@ import contacts from '../assets/json/contacts.json'
 import ContactInfo from './ContactInfo.vue'
 
 export default {
-  name: 'Email Directory',
+  name: 'EmailDirectory',
   components: {
       ContactInfo,
   },
