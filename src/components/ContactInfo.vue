@@ -1,16 +1,18 @@
 <template>
-    <div class="mt-5 mb-2 p-6">
+    <div class="bg-gray-50 mt-5 mb-2 p-6 rounded-md">
         <h2 class="text-xl font-bold leading-6 text-gray-800 text-center uppercase">
             {{ selectedContact.name }}
         </h2>
         <div class="text-sm mt-1">
             <div class="flex flex-wrap justify-center">
-                <p>{{ selectedContact.email }}</p>
+                <p class="contactInfo__contact">
+                    {{ selectedContact.email }}
+                </p>
                 <div v-for="phone in selectedContact.phone" :key="phone.number">
                     {{ formattedPhone(phone) }}
                 </div>
-                <p> {{ selectedContact.city }}, {{ selectedContact.state }}, {{ selectedContact.postal_code}}, {{ selectedContact.country }} </p>
             </div>
+            <p class="text-center"> {{ selectedContact.city }}, {{ selectedContact.state }}, {{ selectedContact.postal_code}}, {{ selectedContact.country }} </p>
         </div>
 
         <div class="pt-4 mt-4 border-t-2 border-color-gray-900">
@@ -56,3 +58,26 @@ export default ({
     }
 })
 </script>
+
+<style lang="scss">
+.contactInfo__contact {
+
+    @media screen and (min-width: 768px) {
+        position: relative;
+        margin-right: 30px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -18px;
+            width: 4px;
+            height: 4px;
+            background: #6B7280;
+            border-radius: 50%;
+        }
+    }
+}
+
+</style>
