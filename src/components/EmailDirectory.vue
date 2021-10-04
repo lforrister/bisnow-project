@@ -6,21 +6,24 @@
         </p>
 
         <form>
-            <div>
-                <label>
+            <div class="mb-4">
+                <label class="block text-gray-500 text-xs font-bold mb-2 uppercase" for="email">
                     Email Address
                 </label>
                 <input
                     v-model="emailInput"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
                     type="email"
                     placeholder="Email"
                     required
+                    @blur="validateEmail"
                 />
             </div>
 
             <button
                 type="submit"
+                class="w-full bg-blue-400 text-white font-bold py-2 px-4 rounded hover:bg-blue-900"
                 @click.prevent="emailSearch()"
             >
                 Submit
@@ -34,6 +37,10 @@
 
         <div v-if="errorMessage">
             {{ errorMessage }}
+        </div>
+
+        <div v-if="invalidMessage">
+            {{ invalidMessage }}
         </div>
     </div>
 </template>
@@ -50,9 +57,20 @@ export default {
           includedEmail: false,
           selectedContact: {},
           errorMessage: null,
+          invalidMessage: null,
       }
   },
   methods: {
+    validateEmail() {
+        const emailRegex = /\b[\w.!#$%&’*+/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b/
+        const valid = emailRegex.test(this.emailInput)
+
+        if (!valid) {
+            this.invalidMessage = 'Please enter a valid email address'
+        } else {
+            this.invalidMessage = null
+        }
+    },
     emailSearch() {
       //Here is where we'll search through the directory
       console.log('searching!')
