@@ -27,6 +27,7 @@
                     required
                     @input="validateEmail"
                     @blur="checkToSubmit"
+                    @keydown="clearMessaging"
                 />
                 <div v-if="invalidMessage" class="text-xs italic text-red-600 pt-2">
                     {{ invalidMessage }}
@@ -34,8 +35,10 @@
             </div>
 
             <button
+                :disabled="disabled"
                 type="submit"
-                class="w-full bg-blue-400 text-white font-bold py-2 px-4 rounded hover:bg-blue-900"
+                :class="{'is-disabled' : disabled}"
+                class="emailDirectory__button w-full bg-blue-400 text-white font-bold py-2 px-4 rounded hover:bg-blue-900"
                 @click.prevent="emailSearch()"
             >
                 Submit
@@ -64,6 +67,14 @@ export default {
           errorMessage: null,
           invalidMessage: null,
           timeout: null,
+          disabled: true,
+      }
+  },
+  watch: {
+      emailInput() {
+          if (!this.emailInput.length) {
+              this.disabled = true
+          }
       }
   },
   methods: {
@@ -74,12 +85,17 @@ export default {
         const emailRegex = /\b[\w.!#$%&’*+/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b/
         const valid = emailRegex.test(this.emailInput)
 
-        if (!valid) {
+        /*I think the best experience is to trigger if it's valid, but not if it's empty. 
+        If it's empty, they may be thinking or not ready to fully interact yet, and the error feels distracting.
+         We'll catch the empty on blur, so it will still fire a message when they leave the input field. */
+        if (!valid && this.emailInput.length) {
             this.timeout = setTimeout(() => {
                 this.invalidMessage = 'Please enter a valid email address'
+                this.disabled = true
             }, 1000)
         } else {
             this.invalidMessage = null
+            this.disabled = false
         }
     },
     checkToSubmit() {
@@ -89,18 +105,21 @@ export default {
 
         if (!valid) {
             this.invalidMessage = 'Please enter a valid email address'
+            this.disabled = true
         } else {
             this.invalidMessage = null
+            this.disabled = false
+
+            // if (this.emailInput.length) {
+            //     this.disabled = false
+            // } else {
+            //     this.disabled = true
+            // }
         }
     },
     emailSearch() {
       //Here is where we'll search through the directory
-      console.log('searching!')
-      console.log('contacts', this.contacts)
-
       const emails = this.contactData.map((contact) => contact.email)
-
-      console.log('emails', emails)
 
       if (emails.includes(this.emailInput)) {
           this.includedEmail = true
@@ -112,6 +131,12 @@ export default {
           this.errorMessage = "We're sorry, we couldn't find information associated with that email address. Please try again." 
       }
 
+    },
+    clearMessaging() {
+        // Let's clear the not found message once they start a new input, so it doesn't linger
+        if (this.errorMessage) {
+            this.errorMessage = null
+        }
     }
   }
 }
@@ -121,6 +146,23 @@ export default {
 .emailDirectory__input {
     &.is-invalid {
         border: 2px solid #f87171;
+    }
+}
+
+.emailDirectory__button {
+    cursor: pointer;
+
+    &.is-disabled {
+        background: lightgray;
+        cursor: not-allowed;
+
+        &:hover {
+            background: lightgray;
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 }
 </style>
