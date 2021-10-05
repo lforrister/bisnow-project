@@ -1,6 +1,6 @@
 About the Project:
 
-One of the initial challenges of this project was getting it all set and installing the appropriate plugins and packages. Because I typically work with larger projects that already have a lot of the set up accomplished by the time I get in there, it was a bit of a learning curve to set it up myself. I found some good documentation and was able to use Vue CLI to set it up pretty easily - though I did run into a couple of small packaging issues, mostly with package versions not playing nice with each other. I also read a helpful article later on to help me deploy this as a Github page (I had done so for other projects, but not a Vue project, so that was a new process as well). Overall, the setup process/deployment process probably took an hour and a half or so. 
+One of the initial challenges of this project was getting it all set up and installing the appropriate plugins and packages. Because I typically work with larger projects that already have a lot of the set up accomplished by the time I get in there, it was a bit of a learning curve to set it up myself. I found some good documentation and was able to use Vue CLI to set it up - though I did run into a couple of small packaging issues, mostly with package versions not playing nice with each other. I also read a helpful article later on to help me deploy this as a Github page (I had done so for other projects, but not a Vue project, so that was a new process as well). Overall, the setup process/deployment process probably took an hour and a half or so. 
 
 Once set up was figured out, things started to move more quickly. Setting up my initial components was straightforward. The main objective of returning a specific contact from the contacts.json was also pretty straightforward - data mapping is a large part of the projects I work on regularly.
 
@@ -17,7 +17,7 @@ Finally, the last bit that took a little time was the styling. Since I am alread
 
 Thank you for your time!
 
-Set Up Notes::
+Set Up Notes:
 
 # bisnow-project
 
