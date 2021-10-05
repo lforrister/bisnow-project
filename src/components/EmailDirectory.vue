@@ -20,7 +20,7 @@
                 <input
                     v-model="emailInput"
                     class="emailDirectory__input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    :class="{'is-invalid' : invalidMessage}"
+                    :class="{'is-invalid' : invalidMessage, 'has-error' : errorMessage}"
                     id="email"
                     type="email"
                     placeholder="Email"
@@ -109,12 +109,6 @@ export default {
         } else {
             this.invalidMessage = null
             this.disabled = false
-
-            // if (this.emailInput.length) {
-            //     this.disabled = false
-            // } else {
-            //     this.disabled = true
-            // }
         }
     },
     emailSearch() {
@@ -144,7 +138,8 @@ export default {
 
 <style lang="scss">
 .emailDirectory__input {
-    &.is-invalid {
+    &.is-invalid,
+    &.has-error {
         border: 2px solid #f87171;
     }
 }
