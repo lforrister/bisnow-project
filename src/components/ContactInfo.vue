@@ -27,10 +27,9 @@
                     {{ position.title }} at {{ position.company }}
                 </h4>
                 <div class="flex flex-wrap justify-center">
-                    <div class="flex text-sm">
+                    <div class="contactInfo__classification flex text-sm">
                         <p class="font-bold mr-1">Classification:</p>
                         <p>{{ position.classification }}</p>
-                        <span class="mx-2"> | </span>
                     </div>
                     <div class="flex text-sm">
                         <p class="font-bold mr-1">Industry:</p>
@@ -61,7 +60,6 @@ export default ({
 
 <style lang="scss">
 .contactInfo__contact {
-
     @media screen and (min-width: 768px) {
         position: relative;
         margin-right: 30px;
@@ -80,4 +78,18 @@ export default ({
     }
 }
 
+.contactInfo__classification {
+    margin-right: 10px;
+
+    @media screen and (min-width: 640px) {
+        margin-right: 20px;
+        position: relative;
+
+        &:after {
+            content: '|';
+            position: absolute;
+            right: -12px;
+        }
+    }
+}
 </style>
